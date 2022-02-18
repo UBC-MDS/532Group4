@@ -1,2 +1,5 @@
-# 532Group4
-A python dashboard
+# Quality of Work Life
+
+![alt text](https://github.com/UBC-MDS/532Group4/documents/labelled_dashboard_sketch.png)
+
+This app is an executive summary of surveys that were conducted to identify the employees' quality of work life. On the top left corner, the name of the company, BEI Vita, is shown to represent where this dashboard belongs to. On the top centre, the name of the client that this dashboard is built for is included. The app contains a landing page that shows the distribution of important variables such as "contributor of employees' quality of work life", "ratings of employees feeling acknowledgment", and "total score of employees' quality of work life". On the top right corner, there are filters for users to select the relevant demographics and regions (i.e. survey results only from Japan). On the centre right, we have one label, "Average Score", which summarises all the data into a single KPI value for swift interpretation. On the very far right, there is a scroll bar to allow users to scroll up and down to view more content. Overall, this app offers a holistic view of the employees' quality of work life in one simple dashboard.
