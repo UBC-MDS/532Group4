@@ -4,7 +4,7 @@ A dashboard exploring Employee well being in corporate world across geographies
 -   Authors: Abhiket Gaurav, Berkay Bulut, Kyle Ahn, Morgan Rosenberg
 
 ### Overview:
-Employee well being is one of the major concern in today's corporate world.A lot of employees quit their jobs as they find the work pressure to be too high, or company culture not suitable as per their needs.There is a major cost involved in hiring, training and nurturing an employee. If an employee quits, it affects the balance sheet of a company, as such employee retention and well being is a challenge for senior-management. Here we are developing and app that gives insights into this aspect of a corporate life. 
+Employee wellbeing is a major concern in today's corporate world. Many employees quit their jobs as they find the work pressure to be too high, or company culture not suitable to their needs. It is commonly known in industry that to replace even the most junior employee is upwards of 25% of their annual salary; this figure only increases as seniority increases. This app will help employers view and understand the health of their employee base to then take proactive steps to keep their employees happy, healthy, and 'here' (retained). 
 
 ### Initial Sketch of the dashboard:
 ![alt text](https://github.com/UBC-MDS/532Group4/blob/main/documents/labelled_dashboard_sketch.png)
