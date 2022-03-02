@@ -119,7 +119,7 @@ def vertical_barplot(xcol_lineplot, xcol_vbarplot):
     lineplot = alt.Chart(qwl_df).mark_line().encode(
         x=xcol_lineplot,
         y="count()",
-    ).interactive()
+    ).properties(width=600).interactive()
 
     vertical_barplot = alt.Chart(qwl_df).mark_bar().encode(
         x=alt.X(
