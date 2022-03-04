@@ -2,3 +2,4 @@ altair==4.2.0
 dash==2.2.0
 dash_bootstrap_components==1.0.3
 pandas==1.4.1
+gunicorn
