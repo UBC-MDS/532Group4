@@ -71,7 +71,11 @@ app.layout = dbc.Container(
                 ),
                 dbc.Col(
                     [
-                   
+                    html.Iframe(
+                        id='horizontal_barplot',
+                        srcDoc=plot_horizontal_barchart(),
+                        style={'border-width': '0', 'width': '100%', 'height': '400px'})  
+
                     ],
                     width=3
                 ),
@@ -111,6 +115,7 @@ app.layout = dbc.Container(
 
 @app.callback(
     Output("lineplot", "srcDoc"),
+    Output("horizontal_barplot", "srcDoc"),
     Output("vertical_barplot", "srcDoc"),
     Input('xcol-lineplot-widget', 'value'),
     Input('xcol-vbarplot-widget', 'value')
@@ -129,7 +134,21 @@ def vertical_barplot(xcol_lineplot, xcol_vbarplot):
         y="count()",
     )
 
-    return lineplot.to_html(), vertical_barplot.to_html(), 
+    return lineplot.to_html(), vertical_barplot.to_html(),
+
+def plot_horizontal_barchart():
+    
+    col_name = '17. I experience MEANINGFULNESS at work ... (e.g. inspired, trusted, respected, purpose, seen and heard, acknowledged, fulfilled, growth, contribution to something greater, etc.) '
+
+    plot_data = qwl_df[col_name].value_counts().to_frame().reset_index()
+    plot_data = plot_data.rename(columns={col_name:'Count', 'index':'Response'})
+
+    chart = alt.Chart(plot_data).mark_bar().encode(
+                    x='Count:Q',
+                    y='Response:O',  
+                )
+
+    return chart.to_html()
 
 if __name__ == "__main__":
     app.run_server(debug=False)
