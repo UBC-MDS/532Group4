@@ -4,7 +4,7 @@ import altair as alt
 import pandas as pd
 
 # disable Altair limits
-qwl_df = pd.read_csv("./data/bei_vita_qwl_assessment.csv")
+qwl_df = pd.read_csv("../data/bei_vita_qwl_assessment.csv")
 
 # NEW Data wrangling for vertical bar graph
 workshop_topics = ['Stress Optimization',
@@ -73,14 +73,24 @@ app.layout = dbc.Container(
                     [
                         html.Div(
                             [
+                                html.H6("Role Classification"),
+                                dcc.Checklist(
+                                    id = 'my_checklist_1',
+                                    options = [{'label' : x , 'value' : x,'disabled':False}
+                                    for x in qwl_df['Role Classification'].unique()],
+                                    value = [b for b in sorted(qwl_df['Role Classification'].unique())]),
+
+                                html.Br(),
+
+                                html.H6("Country of Residence"),
+                                dcc.Checklist(
+                                    id = 'my_checklist_2',
+                                    options = [{'label' : y , 'value' : y,'disabled':False}
+                                    for y in qwl_df['Country of Residence '].unique()],
+                                    value = [c for c in sorted(qwl_df['Country of Residence '].unique())]),
                                 html.Iframe(
                                     id="lineplot",
                                     style={"border-width": "0", "width": "100%", "height": "450px"}
-                                ),
-                                dcc.Dropdown(
-                                    id='xcol-lineplot-widget',
-                                    value='Total score',
-                                    options=[{'label': col, 'value': col} for col in ["Total score"]]
                                 )
                             ]
                         )
@@ -91,7 +101,7 @@ app.layout = dbc.Container(
                     [
                     html.Iframe(
                         id='horizontal_barplot',
-                        srcDoc=plot_horizontal_barchart(),
+                        # srcDoc= plot_horizontal_barchart(),
                         style={'border-width': '0', 'width': '100%', 'height': '400px'})  
 
                     ],
@@ -134,14 +144,25 @@ app.layout = dbc.Container(
     Output("lineplot", "srcDoc"),
     Output("horizontal_barplot", "srcDoc"),
     Output('Country', 'srcDoc'),
-    Input('xcol-lineplot-widget', 'value'),
+    Input('my_checklist_1', 'value'),
+    Input('my_checklist_2', 'value'),
+    #Input('xcol-lineplot-widget', 'value'),
     Input('xcountry-widget', 'value')
 )
-def vertical_barplot(xcol_lineplot, xcol_vbarplot):
-    lineplot = alt.Chart(qwl_df).mark_line().encode(
-        x=xcol_lineplot,
-        y="count()",
-    ).properties(width=600).interactive()
+def vertical_barplot(my_checklist_1, my_checklist_2, xcol_vbarplot):
+    # line plot 
+    df_sub = qwl_df[(qwl_df["Role Classification"].isin(my_checklist_1)) & 
+                    (qwl_df["Country of Residence "].isin(my_checklist_2)) ]
+    lineplot = alt.Chart(df_sub, title='How healthy are the employees feeling overall?').mark_area(
+        color = "lightblue",
+        interpolate = "step-after",
+        line = True
+    ).encode(
+        alt.X("Total score"),
+        alt.Y("count():Q",
+              title="# of Employees",
+    )).properties(width=600).interactive()
+
     #vertical boxplot
     data = vg_df[(vg_df['Country'] == xcol_vbarplot)]
     vertical_boxplot = alt.Chart(data, title = "Workshop Preference (lower is more important)").mark_boxplot().encode(
@@ -152,10 +173,6 @@ def vertical_barplot(xcol_lineplot, xcol_vbarplot):
         width=400,
         height=180
     )
-
-    return lineplot.to_html(), vertical_boxplot.to_html(),
-
-def plot_horizontal_barchart():
     
     col_name = '17. I experience MEANINGFULNESS at work ... (e.g. inspired, trusted, respected, purpose, seen and heard, acknowledged, fulfilled, growth, contribution to something greater, etc.) '
 
@@ -167,7 +184,7 @@ def plot_horizontal_barchart():
                     y='Response:O',  
                 )
 
-    return chart.to_html()
+    return lineplot.to_html(), vertical_boxplot.to_html(), chart.to_html()
 
 if __name__ == "__main__":
     app.run_server(debug=False)
