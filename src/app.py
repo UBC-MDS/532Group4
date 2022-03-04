@@ -104,19 +104,19 @@ app.layout = dbc.Container(
 
         dbc.Row(
             [
-                dbc.Col(
-                    [
+                # dbc.Col(
+                #     [
                         
-                    ],
-                ),
+                #     ],
+                # ),
                 dbc.Col(
                     [
                         html.Div(
                             [ #Vertical boxplot drop down
-                                 html.Iframe(
-                                     id='Country',
-                                     style={'border-width': '0', 'width': '100%', 'height': '400px'}
-                                 ),
+                                html.Iframe(
+                                    id='Country',
+                                    style={'border-width': '0', 'width': '1000px', 'height': '400px'}
+                                ),
                                 dcc.Dropdown(
                                     id='xcountry-widget',
                                     value=vg_df.Country[0],  # REQUIRED for page to load with a graph
@@ -136,8 +136,6 @@ app.layout = dbc.Container(
     Output("horizontal_barplot", "srcDoc"),
     Output('Country', 'srcDoc'),
     Input('my_checklist', 'value'),
-    #Input('xcol-lineplot-widget', 'value'),
-    #Input('xcountry_2-widget', 'value'),
     Input('xcountry-widget', 'value')
 )
 def vertical_barplot(my_checklist, xcol_vbarplot):
@@ -171,9 +169,12 @@ def vertical_barplot(my_checklist, xcol_vbarplot):
     plot_data = plot_data.rename(columns={col_name:'Count', 'index':'Response'})
 
     chart = alt.Chart(plot_data).mark_bar().encode(
-                    x='Count:Q',
-                    y='Response:O',  
-                )
+        x='Count:Q',
+        y='Response:O',  
+    ).properties(
+        width=750,
+        height=300
+    )
 
     return lineplot.to_html(), vertical_boxplot.to_html(), chart.to_html()
 
