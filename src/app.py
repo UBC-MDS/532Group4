@@ -72,19 +72,10 @@ app.layout = dbc.Container(
                 dbc.Col(
                     [
                         html.Div(
-                            [
-                                html.H6("Role Classification"),
-                                dcc.Checklist(
-                                    id = 'my_checklist_1',
-                                    options = [{'label' : x , 'value' : x,'disabled':False}
-                                    for x in qwl_df['Role Classification'].unique()],
-                                    value = [b for b in sorted(qwl_df['Role Classification'].unique())]),
-
-                                html.Br(),
-
+                            [  
                                 html.H6("Country of Residence"),
-                                dcc.Checklist(
-                                    id = 'my_checklist_2',
+                                dcc.Dropdown(
+                                    id = 'my_checklist',
                                     options = [{'label' : y , 'value' : y,'disabled':False}
                                     for y in qwl_df['Country of Residence '].unique()],
                                     value = [c for c in sorted(qwl_df['Country of Residence '].unique())]),
@@ -144,15 +135,15 @@ app.layout = dbc.Container(
     Output("lineplot", "srcDoc"),
     Output("horizontal_barplot", "srcDoc"),
     Output('Country', 'srcDoc'),
-    Input('my_checklist_1', 'value'),
-    Input('my_checklist_2', 'value'),
+    Input('my_checklist', 'value'),
     #Input('xcol-lineplot-widget', 'value'),
+    #Input('xcountry_2-widget', 'value'),
     Input('xcountry-widget', 'value')
 )
-def vertical_barplot(my_checklist_1, my_checklist_2, xcol_vbarplot):
-    # line plot 
-    df_sub = qwl_df[(qwl_df["Role Classification"].isin(my_checklist_1)) & 
-                    (qwl_df["Country of Residence "].isin(my_checklist_2)) ]
+def vertical_barplot(my_checklist, xcol_vbarplot):
+
+    df_sub = qwl_df[(qwl_df['Country of Residence '].isin([my_checklist]))]
+  
     lineplot = alt.Chart(df_sub, title='How healthy are the employees feeling overall?').mark_area(
         color = "lightblue",
         interpolate = "step-after",
