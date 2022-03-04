@@ -163,9 +163,11 @@ def vertical_barplot(my_checklist, xcol_vbarplot):
         height=180
     )
     
+    #horizontal barchart
+    plot_data = qwl_df[(qwl_df['Country of Residence '].isin([my_checklist]))]
     col_name = '17. I experience MEANINGFULNESS at work ... (e.g. inspired, trusted, respected, purpose, seen and heard, acknowledged, fulfilled, growth, contribution to something greater, etc.) '
 
-    plot_data = qwl_df[col_name].value_counts().to_frame().reset_index()
+    plot_data = plot_data[col_name].value_counts().to_frame().reset_index()
     plot_data = plot_data.rename(columns={col_name:'Count', 'index':'Response'})
 
     chart = alt.Chart(plot_data).mark_bar().encode(
