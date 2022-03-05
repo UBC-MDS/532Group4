@@ -163,7 +163,7 @@ def vertical_barplot(my_checklist, xcol_vbarplot):
     plot_data = plot_data[col_name].value_counts().to_frame().reset_index()
     plot_data = plot_data.rename(columns={col_name:'Count', 'index':'Response'})
 
-    chart = alt.Chart(plot_data, title='How much employees find meaningfulness in their work in a week ?').mark_bar().encode(
+    chart = alt.Chart(plot_data, title='How frequently do employees find meaningfulness at work?').mark_bar().encode(
         x='Count:Q',
         y='Response:O',  
     ).properties(
