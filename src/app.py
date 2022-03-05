@@ -75,57 +75,52 @@ app.layout = dbc.Container(
                             [  
                                 html.H6("Country of Residence"),
                                 dcc.Dropdown(
-                                    id = 'my_checklist',
+                                    id="my_checklist",
                                     options = [{'label' : y , 'value' : y,'disabled':False}
                                     for y in qwl_df['Country of Residence '].unique()],
                                     value = [c for c in sorted(qwl_df['Country of Residence '].unique())]),
                                 html.Iframe(
                                     id="lineplot",
-                                    style={"border-width": "0", "width": "100%", "height": "450px"}
+                                    style={"border-width": "0", "width": "100%", "height": "340px"}
                                 )
                             ]
                         )
                     ],
-                    width=9
-                ),
-                dbc.Col(
-                    [
-                    html.Iframe(
-                        id='horizontal_barplot',
-                        # srcDoc= plot_horizontal_barchart(),
-                        style={'border-width': '0', 'width': '100%', 'height': '400px'})  
-
-                    ],
-                    width=3
-                ),
+                    width=12
+                )
             ],
         ),
-        html.Br(),
+        # html.Br(),
 
         dbc.Row(
             [
-                # dbc.Col(
-                #     [
-                        
-                #     ],
-                # ),
+                dbc.Col(
+                    [
+                        html.Iframe(
+                            id='horizontal_barplot',
+                            style={'border-width': '0', 'width': '100%', 'height': '450px'})  
+
+                        ],
+                    width=6
+                ),
                 dbc.Col(
                     [
                         html.Div(
-                            [ #Vertical boxplot drop down
-                                html.Iframe(
-                                    id='Country',
-                                    style={'border-width': '0', 'width': '1000px', 'height': '400px'}
-                                ),
+                            [ 
+                                html.H6("Nationality"),
                                 dcc.Dropdown(
                                     id='xcountry-widget',
                                     value=vg_df.Country[0],  # REQUIRED for page to load with a graph
                                     options=[{'label': c, 'value': c} for c in vg_df.Country.unique()]
+                                ),
+                                html.Iframe(
+                                    id='Country',
+                                    style={'border-width': '0', 'width': '100%', 'height': '450px'}
                                 )
                             ]
-                        )
-                    ]
-                ),
+                        ),
+                    ],
+                )
             ],
         )
     ]
@@ -133,16 +128,15 @@ app.layout = dbc.Container(
 
 @app.callback(
     Output("lineplot", "srcDoc"),
-    Output("horizontal_barplot", "srcDoc"),
     Output('Country', 'srcDoc'),
+    Output("horizontal_barplot", "srcDoc"),
     Input('my_checklist', 'value'),
     Input('xcountry-widget', 'value')
 )
 def vertical_barplot(my_checklist, xcol_vbarplot):
+    plot_data = qwl_df[(qwl_df['Country of Residence '].isin([my_checklist]))]
 
-    df_sub = qwl_df[(qwl_df['Country of Residence '].isin([my_checklist]))]
-  
-    lineplot = alt.Chart(df_sub, title='How healthy are the employees feeling overall?').mark_area(
+    lineplot = alt.Chart(plot_data, title='How healthy are the employees feeling overall?').mark_area(
         color = "lightblue",
         interpolate = "step-after",
         line = True
@@ -150,7 +144,7 @@ def vertical_barplot(my_checklist, xcol_vbarplot):
         alt.X("Total score"),
         alt.Y("count():Q",
               title="# of Employees",
-    )).properties(width=600).interactive()
+    )).properties(width=750, height=250).interactive()
 
     #vertical boxplot
     data = vg_df[(vg_df['Country'] == xcol_vbarplot)]
@@ -159,12 +153,11 @@ def vertical_barplot(my_checklist, xcol_vbarplot):
         y = 'Preference',
         color = alt.Color('Workshop_Topic', legend=None)
     ).properties(
-        width=400,
-        height=180
+        width=300,
+        height=250
     )
     
     #horizontal barchart
-    plot_data = qwl_df[(qwl_df['Country of Residence '].isin([my_checklist]))]
     col_name = '17. I experience MEANINGFULNESS at work ... (e.g. inspired, trusted, respected, purpose, seen and heard, acknowledged, fulfilled, growth, contribution to something greater, etc.) '
 
     plot_data = plot_data[col_name].value_counts().to_frame().reset_index()
@@ -174,8 +167,8 @@ def vertical_barplot(my_checklist, xcol_vbarplot):
         x='Count:Q',
         y='Response:O',  
     ).properties(
-        width=750,
-        height=300
+        width=300,
+        height=350
     )
 
     return lineplot.to_html(), vertical_boxplot.to_html(), chart.to_html()
