@@ -10,14 +10,13 @@ This dashboard will help employers view and understand the health of their emplo
 
 ## Usefull Links:
 
-- Dashboard Link  = https://quality-of-work-life-bei-vita.herokuapp.com/
-- Proposal Link = https://github.com/UBC-MDS/quality_of_work_life/blob/main/proposal.md
+- [Live Dashboard Link](https://quality-of-work-life-bei-vita.herokuapp.com/)
+- [Proposal Link](https://github.com/UBC-MDS/quality_of_work_life/blob/main/proposal.md)
 
 
 ## Dashboard Filter:
 
 1. Country: The work life quality data can be filtered by country. To get a better understanding on a global scale or a regional scale.
-2. 
 
 ## Initial Sketch of the dashboard:
 ![alt text](https://github.com/UBC-MDS/quality_of_work_life/blob/main/doc/labelled_dashboard_sketch.png)
