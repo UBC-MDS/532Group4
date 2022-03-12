@@ -26,6 +26,16 @@ This dashboard will help employers view and understand the health of their emplo
 ## Explanation
 This app is an executive summary of surveys that were conducted to identify the employees' quality of work life. On the top left corner, the name of the company, BEI Vita, is shown to represent where this dashboard belongs to. On the top centre, the name of the client that this dashboard is built for is included. The app contains a landing page that shows the distribution of important variables such as "contributor of employees' quality of work life", "ratings of employees feeling acknowledgment", and "total score of employees' quality of work life". On the top right corner, there are filters for users to select the relevant demographics and regions (i.e. survey results only from Japan). On the centre right, we have one label, "Average Score", which summarises all the data into a single KPI value for swift interpretation. On the very far right, there is a scroll bar to allow users to scroll up and down to view more content. Overall, this app offers a holistic view of the employees' quality of work life in one simple dashboard.
 
+## Using with Docker
+In order to use with Docker, you need to install Docker first on your machine. After installing Docker, you can run the following command to run the app:
+1. Fist build the docker container image:
+`docker-compose build --no-cache`
+2. Run the docker container:
+`docker-compose up`
+3. Open the browser to the following link:
+`http://localhost:8000`
+
+
 ## Contributing
 
 Interested in contributing? Check out the [contributing guidelines](https://github.com/UBC-MDS/quality_of_work_life/blob/main/CONTRIBUTING.md). Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
