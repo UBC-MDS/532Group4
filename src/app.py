@@ -4,7 +4,7 @@ import altair as alt
 import pandas as pd
 
 # disable Altair limits
-qwl_df = pd.read_csv("../data/bei_vita_qwl_assessment.csv")
+qwl_df = pd.read_csv("data/bei_vita_qwl_assessment.csv")
 
 # NEW Data wrangling for vertical bar graph
 workshop_topics = ['Stress Optimization',
