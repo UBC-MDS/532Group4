@@ -71,7 +71,7 @@ app.layout = dbc.Container(
 
                                 html.Iframe(
                                     id="histogram",
-                                    style={"border-width": "0", "width": "100%", "height": "340px"}
+                                    style={"border-width": "0", "width": "100%", "height": "370px"}
                                 )
                             ]
                         )
@@ -87,7 +87,7 @@ app.layout = dbc.Container(
                     [
                         html.Iframe(
                             id='horizontal_barplot',
-                            style={'border-width': '0', 'width': '100%', 'height': '450px'})  
+                            style={'border-width': '0', 'width': '100%', 'height': '500px'})  
                         ],
                     width=6
                 ),
@@ -97,7 +97,7 @@ app.layout = dbc.Container(
                             [
                             html.Iframe(
                                 id='Country',
-                                style={'border-width': '0', 'width': '100%', 'height': '450px'})
+                                style={'border-width': '0', 'width': '100%', 'height': '575px'})
                             ]
                         ),
                     ],
