@@ -30,7 +30,7 @@ app.layout = dbc.Container(
                             )
                         )
                     ],
-                    width=3
+                    width=4
                 ),
                 dbc.Col(
                     [
